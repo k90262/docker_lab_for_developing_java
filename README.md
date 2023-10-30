@@ -7,6 +7,7 @@
   * [Using Dockerfile to build image and run .war program](#using-dockerfile-to-build-image-and-run-war-program)
   * [Using Dockerfile to build maven project and image, then run it](#using-dockerfile-to-build-maven-project-and-image-then-run-it)
   * [Using Dockerfile to build gradle project and image, then run it](#using-dockerfile-to-build-gradle-project-and-image-then-run-it)
+  * [Ref.](#ref)
 <!-- TOC -->
 
 ## Using Docker to build and run java program
@@ -30,6 +31,7 @@ Hello World
 ## Using Dockerfile to build image and run .jar program
 
 ```
+# docker cp <container>:/app/target/api.jar .
 $ ls api.jar
 api.jar
 $ vi jar.Dockerfile
@@ -66,6 +68,7 @@ $ docker run -p 9001:8080 -it --rm my-web-app
 ## Using Dockerfile to build maven project and image, then run it
 
 ```
+$ cd api
 $ ls
 HELP.md          gradle           gradlew.bat      mvnw             pom.xml          src
 build.gradle     gradlew          mvnw.cmd         settings.gradle
@@ -87,6 +90,7 @@ $ docker run -p 9010:8080 -it --rm my-api-maven
 ## Using Dockerfile to build gradle project and image, then run it
 
 ```
+$ cd api
 $ ls
 HELP.md          gradle           gradlew.bat      mvnw             pom.xml          src
 build.gradle     gradlew          mvnw.cmd         settings.gradle
@@ -107,3 +111,9 @@ $ docker run -p 9011:8080 -it --rm my-api-gradle
 # using other tab/terminal to run `docker volume ls` to check used volume
 # ctrl-c to kill container
 ```
+
+
+## Ref.
+
+1. "Docker Memo | 楓鳴樂居 - Bill's Blog"
+http://blog.ychobilllab.click/2023/04/docker-memo.html
