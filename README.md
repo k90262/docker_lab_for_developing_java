@@ -12,7 +12,7 @@
 
 ## Using Docker to build and run java program
 
-```
+```bash
 $ mkdir hello
 $ cd hello
 $ vi ./Hello.java
@@ -30,7 +30,7 @@ Hello World
 ```
 ## Using Dockerfile to build image and run .jar program
 
-```
+```bash
 # docker cp <container>:/app/target/api.jar .
 $ ls api.jar
 api.jar
@@ -51,7 +51,7 @@ $ docker run -p 9000:8080 -it --rm my-api # running as frontground
 
 ## Using Dockerfile to build image and run .war program
 
-```
+```bash
 $ ls web.war                                    
 web.war
 $ vi war.Dockerfile
@@ -67,7 +67,7 @@ $ docker run -p 9001:8080 -it --rm my-web-app
 ```
 ## Using Dockerfile to build maven project and image, then run it
 
-```
+```bash
 $ cd api
 $ ls
 HELP.md          gradle           gradlew.bat      mvnw             pom.xml          src
@@ -89,7 +89,7 @@ $ docker run -p 9010:8080 -it --rm my-api-maven
 
 ## Using Dockerfile to build gradle project and image, then run it
 
-```
+```bash
 $ cd api
 $ ls
 HELP.md          gradle           gradlew.bat      mvnw             pom.xml          src
