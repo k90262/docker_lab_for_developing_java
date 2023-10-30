@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      th:replace="~{fragments/layout :: layout (~{::body},${categories})}">
+
+<body>
+
+<!-- Start Product Details -->
+<div class="container mt-3 pb-4">
+    <div class="product-quick-view">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="quick-view-carousel-details">
+                    <img class="content-image img-fluid d-block mx-auto" th:src="${'/images/' + book.image}" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="quick-view-product">
+                    <div class="top">
+                        <h3 class="head" th:text="${book.title}">Site Runner</h3>
+                        <div class="author" th:text="${book.author}"></div>
+                        <div class="price d-flex align-items-center"><span class="ml-10" th:text="${#numbers.formatCurrency(book.price)}">$19.99</span></div>
+                        <div class="available">Availibility: <b>In Stock</b></div>
+                    </div>
+                    <div class="middle">
+                        <p class="content">Lorem ipsum dolor sit amet, duo appareat adipiscing ei, cu qui magna accusam. An sed scaevola phaedrum. Cu ubique fastidii euripidis nec, ipsum sonet malorum at vim, commune periculis ea mei. Pri ut aperiri scaevola definitiones, nam ad molestie expetendis, libris tractatos ei mea.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Description Section -->
+<div class="container card mt-4">
+    <div class="card-body">
+        <h4 class="card-title">Description</h4>
+        <p class="card-text" th:utext="${book.description}">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+    </div>
+</div>
+<!-- / Description Section -->
+
+<!-- Details Section -->
+<div class="container card mt-4">
+    <div class="card-body">
+        <h4 class="card-title">Book Details</h4>
+        <div class="col-md-12 pt-2">
+            <table class="table table-bordered table-responsive-md">
+                <tbody>
+                <tr>
+                    <td><b>Publisher</b></td>
+                    <td th:text="${book.publisher}">Pluralsight Books</td>
+                </tr>
+                <tr>
+                    <td><b>Pages</b></td>
+                    <td th:text="${book.pages}">100</td>
+                </tr>
+                <tr>
+                    <td><b>ISBN-10</b></td>
+                    <td th:text="${book.isbn10}">1234567890</td>
+                </tr>
+                <tr>
+                    <td><b>ISBN-13</b></td>
+                    <td th:text="${book.isbn13}">1234567890123</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- / Details Section -->
+
+<div class="container mt-4">&nbsp;</div>
+
+</body>
+
+</html>
