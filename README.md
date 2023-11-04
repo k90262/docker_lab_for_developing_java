@@ -112,7 +112,50 @@ $ docker run -p 9011:8080 -it --rm my-api-gradle
 # ctrl-c to kill container
 ```
 
+## Using Multi-stage Builds
 
+```bash
+$ cd web
+
+#
+# Maven
+# 
+$ vi maven-multi.Dockerfile
+FROM maven:3.9-eclipse-temurin-17 as build
+WORKDIR /app
+COPY pom.xml .
+RUN mvn dependency:resolve
+COPY src src
+RUN mvn package
+
+FROM tomcat:10
+COPY --from=build /app/target/web.war ${CATALINA_HOME}/webapps/ROOT.war
+EXPOSE 8080
+ENTRYPOINT ["catalina.sh", "run"]
+
+$ docker build -f maven-multi.Dockerfile -t my-web-maven-multi .
+$ docker run -p 9020:8080 -it --rm -t my-web-maven-multi
+
+#
+# Gradle
+#
+$ vi gradle-multi.Dockerfile
+FROM gradle:8.0-jdk17 as build
+WORKDIR /app
+RUN chown -R gradle:gradle /app
+USER gradle
+COPY build.gradle .
+COPY src src
+RUN gradle build
+
+FROM tomcat:10
+COPY --from=build /app/build/libs/web.war ${CATALINA_HOME}/webapps/ROOT.war
+EXPOSE 8080
+ENTRYPOINT ["catalina.sh", "run"]
+
+$ docker build -f gradle-multi.Dockerfile -t my-web-gradle-multi .
+$ docker run -p 9021:8080 -it --rm -t my-web-gradle-multi
+```
 ## Ref.
 
 1. "Docker Memo | 楓鳴樂居 - Bill's Blog"
