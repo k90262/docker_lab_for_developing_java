@@ -1,5 +1,9 @@
 # [Memo] Pluralsights lesson - Developing Java Apps with Docker
 
+> Developing Java Apps with Docker
+> by Esteban Herrera
+> https://app.pluralsight.com/library/courses/java-apps-docker-developing-2023/table-of-contents
+
 <!-- TOC -->
 * [[Memo] Pluralsights lesson - Developing Java Apps with Docker](#memo-pluralsights-lesson---developing-java-apps-with-docker)
   * [Using Docker to build and run java program](#using-docker-to-build-and-run-java-program)
@@ -156,6 +160,30 @@ ENTRYPOINT ["catalina.sh", "run"]
 $ docker build -f gradle-multi.Dockerfile -t my-web-gradle-multi .
 $ docker run -p 9021:8080 -it --rm -t my-web-gradle-multi
 ```
+
+## Using BuildKit Cache Mount for Maven Dependencies
+
+```bash
+$ cd web
+$ vi maven-cache.Dockerfile
+FROM maven:3.9-eclipse-temurin-17 as build
+WORKDIR /app
+COPY pom.xml .
+COPY src src
+RUN --mount=type=cache,target=/root/.m2 mvn package
+
+FROM tomcat:10
+COPY --from=build /app/target/web.war ${CATALINA_HOME}/webapps/ROOT.war
+EXPOSE 8080
+ENTRYPOINT ["catalina.sh", "run"]
+
+$ docker build -f maven-cache.Dockerfile -t my-web-maven-cache .
+$ vi pom.xml
+# Updated h2database version from .214 to .212
+$ docker build -f maven-cache.Dockerfile -t my-web-maven-cache .
+# At this time, it only download updated packages from mvn package command
+``` 
+
 ## Ref.
 
 1. "Docker Memo | 楓鳴樂居 - Bill's Blog"
